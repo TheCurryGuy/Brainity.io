@@ -11,7 +11,6 @@ app.use(express.json());
 app.use(cors({
     origin: 'http://localhost:5173' // Adjust based on your frontend URL
 }));
-  
 
 ////@ts-ignore was been used before now extended the request function thus not required anymore
 declare global{
@@ -21,6 +20,13 @@ declare global{
         }
     }
 }
+
+app.get("/", (req, res) => {
+
+    res.json({
+        message: "Brainity Server is alive!"
+    })
+})
 
 app.post("/api/v1/signup",async (req,res) => {
     //todo: zod validation, hash the password
