@@ -82,7 +82,6 @@ export function CreateContentModal() {
                 placeholder="Description"
                 ref={descRef}
                 className="border border-gray-300 rounded-lg p-3 w-full resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                rows="4"
               ></textarea>
 
               <select
