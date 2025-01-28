@@ -7,33 +7,22 @@ import { StateContext } from '../Context API/StateContext'
 
 const options = ["youtube", "twitter", "content"];
 
+//@ts-ignore
 export function CreateContentModal() {
-  const { modalOpen, setModal } = useContext(StateContext);
-  const linkRef = useRef<HTMLInputElement>(null);
-  const titleRef = useRef<HTMLInputElement>(null);
+  const {modalOpen, setModal} = useContext(StateContext)
+  const linkRef = useRef<HTMLInputElement>();
+  const titleRef = useRef<HTMLInputElement>();
   const descRef = useRef<HTMLTextAreaElement | null>(null);
+ // Updated to work with textarea
   const [type, setType] = useState("content");
-
-  function onClose() {
-    setModal(false);
+  function onClose(){
+    setModal(false)
   }
 
   async function addContent() {
     const linkVal = linkRef.current?.value;
     const titleVal = titleRef.current?.value;
     const desVal = descRef.current?.value;
-
-    // Check if token exists in localStorage
-    const token = localStorage.getItem("token");
-    if (!token) {
-      alert("Please login to add content.");
-      return;
-    }
-
-    if (!linkVal || !titleVal || !desVal || !type) {
-      alert("Please fill in all fields.");
-      return;
-    }
 
     try {
       await axios.post(
@@ -46,7 +35,7 @@ export function CreateContentModal() {
         },
         {
           headers: {
-            token: token,
+            token: localStorage.getItem("token"),
           },
         }
       );
@@ -54,7 +43,6 @@ export function CreateContentModal() {
       onClose();
     } catch (error) {
       console.error("Error adding content:", error);
-      alert("There was an error adding the content. Please try again.");
     }
   }
 
@@ -86,7 +74,7 @@ export function CreateContentModal() {
 
             {/* Modal Form */}
             <div className="flex flex-col gap-4">
-              <div className="justify-start">
+              <div className=" justify-start">
                 <Input placeholder="Title" reference={titleRef} />
                 <Input placeholder="Link" reference={linkRef} />
               </div>
