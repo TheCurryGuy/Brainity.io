@@ -26,7 +26,7 @@ export function CreateContentModal() {
 
     try {
       await axios.post(
-        "http://localhost:3000/api/v1/content",
+        "https://brainity-server.vercel.app/api/v1/content",
         {
           title: titleVal,
           link: linkVal,
