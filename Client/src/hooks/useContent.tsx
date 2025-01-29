@@ -8,7 +8,7 @@ export default function useContent(){
     useEffect(()=> {
         const fetchContent = async () => {
             try{
-                axios.get("http://localhost:3000/api/v1/content",{
+                axios.get("https://brainity-server.vercel.app/api/v1/content",{
                     headers: {
                         "token": localStorage.getItem("token")
                     }
