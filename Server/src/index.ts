@@ -9,7 +9,7 @@ import cors from "cors"
 const app = express();
 app.use(express.json());
 app.use(cors({
-    origin: 'http://localhost:5173' // Adjust based on your frontend URL
+    origin: 'https://brainity.vercel.app' // Adjust based on your frontend URL
 }));
 
 ////@ts-ignore was been used before now extended the request function thus not required anymore
