@@ -58,7 +58,7 @@ function Dashboard() {
         </div>
       </div>
       <div className='flex flex-col'>
-        <div className='flex justify-evenly flex-wrap pb-2'>
+        <div className='flex justify-evenly flex-wrap pb-2 gap-4'>
         {isDashboard && (
           contents.length === 0 ? (
             <p className=' text-3xl'>Sorry! No contents yet...</p> 
