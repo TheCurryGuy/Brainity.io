@@ -170,7 +170,7 @@ app.get("/api/v1/brain/:shareId", async (req,res) => {
     })
     if(!link) {
         res.status(411).json({
-            message: "Sorry incorrect input"
+            message: "The Brain Your Looking For Does Not Exist 🫤"
         })
     } else{
         const content = await ContentModel.find({
