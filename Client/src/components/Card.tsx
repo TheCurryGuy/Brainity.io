@@ -106,7 +106,7 @@ export function Card({ title, link, description, type }: CardProps) {
           </div>
         )}
         {type === "note" && (
-          <div className="mt-6 p-6 h-fit">
+          <div className="mt-3 p-4 h-fit">
             <h1 className="text-2xl font-semibold text-purple-900 mb-4">Your Note</h1>
             <div className="p-4 bg-gray-50 rounded-lg border border-gray-200">
               <p className="text-gray-700 text-base break-words leading-relaxed">
