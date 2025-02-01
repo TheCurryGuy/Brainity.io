@@ -7,7 +7,8 @@ interface ButtonProps{
     onClick: () => void,
     startIcon?: ReactElement,
     endIcon?: ReactElement,
-    loading? : boolean
+    loading? : boolean,
+    className?: string
 }
 
 const variantStyles = {
@@ -24,7 +25,7 @@ const sizeStyles = {
 const defaultStyles = " rounded-lg cursor-pointer flex justify-center items-center disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed"
 
 export const Button = (props: ButtonProps)=>{
-    return <button disabled={props.loading} onClick={props.onClick} className= {`${variantStyles[props.variant]} ${defaultStyles} ${sizeStyles[props.size]}`}>
+    return <button disabled={props.loading} onClick={props.onClick} className= {`${variantStyles[props.variant]} ${defaultStyles} ${props.className} ${sizeStyles[props.size]}`}>
         <div className=" ">
         {props.startIcon}
         </div>
