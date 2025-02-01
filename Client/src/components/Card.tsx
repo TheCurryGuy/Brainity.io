@@ -1,4 +1,3 @@
-import { DeleteIcon } from "../icons/DeleteIcon";
 import { ShareIcon } from "../icons/ShareIcon";
 import { YouTubeEmbed } from 'react-social-media-embed';
 import { YouTube } from "../icons/Youtube";
@@ -68,6 +67,14 @@ export function Card({ title, link, description, type }: CardProps) {
     }
   }, [link, type]);
 
+  async function CardShareClick(){
+    if(type === "youtube" || type === "twitter" || type === "links"){
+      await navigator.clipboard.writeText(link? link : "No Link");
+    } else{
+      await navigator.clipboard.writeText(description);
+    }
+  }
+
   return (
     <div className="bg-white rounded-md shadow-sm border-1 p-2 border-slate-100 max-h-100 overflow-auto min-w-84">
       {/* Header Section */}
@@ -79,9 +86,8 @@ export function Card({ title, link, description, type }: CardProps) {
           {type === "note" && <NoteIcon />}
           <div className="font-medium text-gray-900">{title}</div>
         </div>
-        <div className="flex items-center gap-2 text-gray-500">
+        <div className="flex items-center gap-2 text-gray-500" onClick={CardShareClick}>
           <ShareIcon size="md" />
-          <DeleteIcon size="md" />
         </div>
       </div>
 
@@ -111,7 +117,7 @@ export function Card({ title, link, description, type }: CardProps) {
         )}
         {type === "note" && (
           <div className="mt-3 p-4 h-fit">
-            <h1 className="text-2xl font-semibold text-purple-900 mb-4">Your Note</h1>
+            <h1 className="text-2xl font-semibold text-purple-900 mb-4">{`${title}'s Content - `}</h1>
             <div className="p-4 bg-gray-50 rounded-lg border border-gray-200">
               <p className="text-gray-700 text-base break-words leading-relaxed">
                 {description}
