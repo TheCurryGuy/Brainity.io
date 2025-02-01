@@ -12,15 +12,17 @@ import { PlusIcon } from '../icons/PlusIcon'
 import axios from 'axios'
 
 async function ShareBrain() {
-  try{
-    const response = await axios.post("https://brainity-server.vercel.app/api/v1/share", {
-      share: true
-    }, {
-      headers: {
-        "token": localStorage.getItem("token")
+  try {
+    const response = await axios.post("https://brainity-server.vercel.app/api/v1/brain/share", 
+      { share: true }, 
+      {
+        headers: {
+          "token": localStorage.getItem("token")
+        }
       }
-    });
-    const ShareUrl = 'https://brainity.vercel.app/share/' + response.data.hash;
+    );
+
+    const ShareUrl = `https://brainity.vercel.app/share/${response.data.hash}`;
     await navigator.clipboard.writeText(ShareUrl);
     alert("Share link copied to clipboard!");
   } catch (error) {
@@ -28,6 +30,7 @@ async function ShareBrain() {
     alert("Failed to generate share link.");
   }
 }
+
 
 function Dashboard() {
   const {setModal, isDashboard, isTwitter, isContent, isYoutube, isNote} = useContext(StateContext)

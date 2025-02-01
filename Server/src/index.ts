@@ -131,37 +131,27 @@ app.delete("/api/v1/content", userMiddleware, async (req, res) => {
     })
 })
 
-app.post("/api/v1/brain/share", userMiddleware, async(req,res) => {
-    const share = req.body.share;
-    if(share){
-        try{
-            const hashed = randomHash(8, req.userId)
+app.post("/api/v1/brain/share", userMiddleware, async (req, res) => {
+    const share = req.body.share;  // Now properly receives request body
+
+    if (share) {
+        try {
+            const hashed = randomHash(8, req.userId);
             await LinkModel.create({
                 userId: req.userId,
                 hash: hashed
-            })
-            res.json({
-                hash: hashed
-            })
-        } catch(e){
-            const oldLink = await LinkModel.findOne({
-                userId: req.userId
-            })
-            res.json({
-                hash: oldLink?.hash
-            })
-
+            });
+            res.json({ hash: hashed });
+        } catch (e) {
+            const oldLink = await LinkModel.findOne({ userId: req.userId });
+            res.json({ hash: oldLink?.hash });
         }
-        
-    } else{
-        await LinkModel.deleteOne({
-            userId: req.userId
-        });
-        res.json({
-            message: "Old link Deleted successfully"
-        })
+    } else {
+        await LinkModel.deleteOne({ userId: req.userId });
+        res.json({ message: "Old link Deleted successfully" });
     }
-})
+});
+
 
 app.get("/api/v1/brain/:shareId", async (req,res) => {
     const hash = req.params.shareId;
