@@ -8,8 +8,12 @@ import cors from "cors"
 
 const app = express();
 app.use(cors({
-    origin: 'https://brainity.vercel.app' // Adjust based on your frontend URL
+    origin: 'https://brainity.vercel.app',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['token'],
+    credentials: true
 }));
+
 app.options('*', cors());
 app.use(express.json());
 
@@ -140,14 +144,14 @@ app.post("/api/v1/brain/share", userMiddleware, async(req,res) => {
                 hash: hashed
             })
             res.json({
-                message: "/share/"+hashed
+                hash: hashed
             })
         } catch(e){
             const oldLink = await LinkModel.findOne({
                 userId: req.userId
             })
             res.json({
-                message: "/share/"+ oldLink?.hash
+                hash: oldLink?.hash
             })
 
         }

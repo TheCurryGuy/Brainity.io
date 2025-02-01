@@ -17,7 +17,7 @@ async function ShareBrain() {
       share: true
     }, {
       headers: {
-        token: localStorage.getItem('token')
+        "token": localStorage.getItem("token")
       }
     });
     const ShareUrl = 'https://brainity.vercel.app/share/' + response.data.hash;
