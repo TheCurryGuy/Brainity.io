@@ -1,13 +1,11 @@
 import { DeleteIcon } from "../icons/DeleteIcon";
 import { ShareIcon } from "../icons/ShareIcon";
-import { XEmbed, YouTubeEmbed } from 'react-social-media-embed';
+import { YouTubeEmbed } from 'react-social-media-embed';
 import { YouTube } from "../icons/Youtube";
 import { TwitterIcon } from "../icons/TwitterIcon";
 import { ContentIcon } from "../icons/ContentIcon";
 import axios from "axios";
-import { useState, useEffect } from "react";
-
-
+import React,{ useState, useEffect, ErrorInfo } from "react";
 
 // Define types for the props
 interface CardProps {
@@ -29,6 +27,53 @@ interface PreviewData {
     description?: string[];
   };
 }
+
+// Error Boundary
+class ErrorBoundary extends React.Component<{ children: React.ReactNode }, { hasError: boolean }> {
+  constructor(props: { children: React.ReactNode }) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error: Error) {
+    console.log('Error:', error);
+    return { hasError: true };
+  }
+
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    console.error('Error caught by ErrorBoundary:', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return <div>Something went wrong while rendering the Twitter embed.</div>;
+    }
+    return this.props.children;
+  }
+}
+
+// Twitter Embed Component
+const TwitterEmbed = ({ url }: { url: string }) => {
+  const [XEmbed, setXEmbed] = useState<React.ComponentType<{ url: string }> | null>(null);
+
+  useEffect(() => {
+    import('react-social-media-embed').then((module) => {
+      setXEmbed(() => module.XEmbed);
+    }).catch((error) => {
+      console.error('Failed to load XEmbed:', error);
+    });
+  }, []);
+
+  if (!XEmbed) {
+    return <div>Loading Twitter embed...</div>;
+  }
+
+  return (
+    <ErrorBoundary>
+      <XEmbed url={url} />
+    </ErrorBoundary>
+  );
+};
 
 export function Card({ title, link, description, type }: CardProps) {
   const [previewData, setPreviewData] = useState<PreviewData | null>(null);
@@ -58,6 +103,7 @@ export function Card({ title, link, description, type }: CardProps) {
       setLoading(false);
     }
   };
+
   useEffect(() => {
     // Fetch link preview data for "content" type
     if (type === "content") {
@@ -88,17 +134,17 @@ export function Card({ title, link, description, type }: CardProps) {
             <YouTubeEmbed url={link || "null"} width={320} height={160} />
             <h1 className="pt-4">Your Note - </h1>
             <p className="text-sm text-gray-600 break-words">
-                      {description}
+              {description}
             </p>
           </div>
         )}
         {type === "twitter" && (
           <div>
-          <XEmbed className="relative m-auto" url={link} />
+            <TwitterEmbed url={link || "null"} />
             <h1 className="pt-4">Your Note - </h1>
-              <p className="text-sm text-gray-600 break-words">
-                        {description}
-              </p>
+            <p className="text-sm text-gray-600 break-words">
+              {description}
+            </p>
           </div>
         )}
         {type === "content" && (
@@ -139,15 +185,13 @@ export function Card({ title, link, description, type }: CardProps) {
                 </a>
                 <h1>Your Note - </h1>
                 <p className="text-sm text-gray-600 break-words">
-                    {description}
+                  {description}
                 </p>
-
               </div>
             )}
           </div>
         )}
       </div>
-
     </div>
   );
 }
