@@ -135,16 +135,26 @@ app.post("/api/v1/brain/share", userMiddleware, async (req, res) => {
     const share = req.body.share;  // Now properly receives request body
 
     if (share) {
-        try {
-            const hashed = randomHash(8, req.userId);
-            await LinkModel.create({
-                userId: req.userId,
-                hash: hashed
-            });
-            res.json({ hash: hashed });
-        } catch (e) {
-            const oldLink = await LinkModel.findOne({ userId: req.userId });
-            res.json({ hash: oldLink?.hash });
+        try{
+            const islinkOld = await LinkModel.findOne({
+                userId: req.userId
+            })
+            if(islinkOld){
+                res.json({
+                    hash: islinkOld.hash
+                })
+            } else {
+                const hashed = randomHash(8, req.userId);
+                await LinkModel.create({
+                    userId: req.userId,
+                    hash: hashed
+                });
+                res.json({ hash: hashed });
+            }
+        } catch(e){
+            res.json({
+                message: "Error"
+            })
         }
     } else {
         await LinkModel.deleteOne({ userId: req.userId });

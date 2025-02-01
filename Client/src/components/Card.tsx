@@ -16,7 +16,7 @@ interface CardProps {
   title: string;
   link?: string;
   description: string;
-  type: "youtube" | "twitter" | "content" | "note";
+  type: "youtube" | "twitter" | "links" | "note";
 }
 
 // Define types for the API response
@@ -62,7 +62,7 @@ export function Card({ title, link, description, type }: CardProps) {
   };
   useEffect(() => {
     // Fetch link preview data for "content" type
-    if (type === "content") {
+    if (type === "links") {
       if(link)
         fetchPreview(link);
     }
@@ -75,7 +75,7 @@ export function Card({ title, link, description, type }: CardProps) {
         <div className="flex items-center gap-2">
           {type === "youtube" && <YouTube />}
           {type === "twitter" && <TwitterIcon />}
-          {type === "content" && <ContentIcon />}
+          {type === "links" && <ContentIcon />}
           {type === "note" && <NoteIcon />}
           <div className="font-medium text-gray-900">{title}</div>
         </div>
@@ -119,7 +119,7 @@ export function Card({ title, link, description, type }: CardProps) {
             </div>
           </div>
         )}
-        {type === "content" && (
+        {type === "links" && (
           <div className="overflow-hidden break-words max-w-74">
             {loading ? (
               <div className="p-4 text-center text-gray-600">Loading preview...</div>

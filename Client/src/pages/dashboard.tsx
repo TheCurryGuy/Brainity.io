@@ -1,5 +1,5 @@
 
-import { useEffect, useContext } from 'react'
+import { useEffect, useContext, useState } from 'react'
 import { Card } from '../components/Card'
 import { CreateContentModal } from '../components/CreateContentModal'
 import { Sidebar } from '../components/Sidebar'
@@ -25,9 +25,29 @@ async function ShareBrain() {
     const ShareUrl = `https://brainity.vercel.app/share/${response.data.hash}`;
     await navigator.clipboard.writeText(ShareUrl);
     alert("Share link copied to clipboard!");
+    return true;
   } catch (error) {
     console.error("Error sharing brain:", error);
     alert("Failed to generate share link.");
+    return false;
+  }
+}
+async function deleteShare() {
+  try {
+    await axios.post("https://brainity-server.vercel.app/api/v1/brain/share", 
+      { share: false }, 
+      {
+        headers: {
+          "token": localStorage.getItem("token")
+        }
+      }
+    );
+    alert("Shared link deleted successfully!");
+    return true;
+  } catch (error) {
+    console.error("Error deleting share:", error);
+    alert("Failed to delete share link.");
+    return false;
   }
 }
 
@@ -36,6 +56,7 @@ function Dashboard() {
   const {setModal, isDashboard, isTwitter, isContent, isYoutube, isNote} = useContext(StateContext)
   const contents = useContent();
   const navigate = useNavigate();
+  const [buttonText, setButtonText] = useState<string>('Share Brain');
   const token = localStorage.getItem('token');
   
   useEffect(() => {
@@ -45,6 +66,20 @@ function Dashboard() {
     }
   }, [token, navigate]);
 
+  const handleShareButtonClick = async () => {
+    if (buttonText === 'Share Brain') {
+      const success:boolean = await ShareBrain();
+      if (success) {
+        setButtonText('Delete Share');
+      }
+    } else {
+      const success:boolean = await deleteShare();
+      if (success) {
+        setButtonText('Share Brain');
+      }
+    }
+  };
+
 
   return <div className='flex bg-[#F9FBFC]'>
     
@@ -53,7 +88,7 @@ function Dashboard() {
       <div className='flex justify-between items-center mt-10 mb-14'>
         <h1 className=' text-4xl'>All Notes</h1>
         <div className=' flex gap-2'>
-            <Button startIcon= {<ShareIcon size='lg' />} size='md' variant='secondary' text='Share Brain' onClick={ShareBrain}></Button>
+            <Button startIcon={<ShareIcon size='lg' />} size='md' variant='secondary' text={buttonText} onClick={handleShareButtonClick}></Button>
             <Button startIcon= {<PlusIcon size='lg' />} size='md' variant='primary' text='Add Content' onClick= {() => setModal(true)}></Button>
         </div>
       </div>
@@ -82,11 +117,11 @@ function Dashboard() {
           )}
 
           {isContent && (
-            contents.filter(({ type }) => type === "content").length === 0 ? (
+            contents.filter(({ type }) => type === "links").length === 0 ? (
               <p className=' text-3xl'>Sorry! No contents yet...</p> 
             ) : (
               contents
-                .filter(({ type }) => type === "content")
+                .filter(({ type }) => type === "links")
                 .map(({ title, link, description, type }, index) => (
                   <Card key={index} description={description} title={title} link={link} type={type} />
                 ))

@@ -5,7 +5,7 @@ import { Input } from "./Input";
 import axios from "axios";
 import { StateContext } from '../Context API/StateContext';
 
-const options = ["youtube", "twitter", "content", "note"]; // Added "note" option
+const options = ["youtube", "twitter", "links", "note"]; // Added "note" option
 
 //@ts-ignore
 export function CreateContentModal() {
@@ -13,7 +13,7 @@ export function CreateContentModal() {
   const linkRef = useRef<HTMLInputElement>(null);
   const titleRef = useRef<HTMLInputElement>(null);
   const descRef = useRef<HTMLTextAreaElement>(null);
-  const [type, setType] = useState("content");
+  const [type, setType] = useState("note");
 
   function onClose() {
     setModal(false);

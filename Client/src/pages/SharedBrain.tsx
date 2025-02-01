@@ -5,7 +5,7 @@ import { Card } from '../components/Card';
 import { BrainIcon } from '../icons/BrainIcon'; 
 import { Button } from '../components/Button';
 
-type ContentType = 'youtube' | 'twitter' | 'content' | 'note';
+type ContentType = 'youtube' | 'twitter' | 'links' | 'note';
 
 type Content = {
   title: string;

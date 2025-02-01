@@ -63,7 +63,7 @@ export const Sidebar = () => {
                 <SidebarItem onClick = {HomeClick} icon={<HomeIcon />} text="Dashboard"/>
                 <SidebarItem onClick = {YoutubeClick} icon={<YouTube/>} text="Youtube"/>
                 <SidebarItem onClick = {TwitterClick} icon={<TwitterIcon/>} text="Twitter"/>
-                <SidebarItem onClick = {ContentClick} icon={<ContentIcon/>} text="Content"/> 
+                <SidebarItem onClick = {ContentClick} icon={<ContentIcon/>} text="Links"/> 
                 <SidebarItem onClick = {NoteClick} icon={<NoteIcon/>} text="Notes"/>
             </div>
         </div>
