@@ -7,10 +7,11 @@ import { randomHash } from "./utils";
 import cors from "cors"
 
 const app = express();
-app.use(express.json());
 app.use(cors({
     origin: 'https://brainity.vercel.app' // Adjust based on your frontend URL
 }));
+app.options('*', cors());
+app.use(express.json());
 
 ////@ts-ignore was been used before now extended the request function thus not required anymore
 declare global{

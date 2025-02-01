@@ -101,10 +101,12 @@ export function Card({ title, link, description, type }: CardProps) {
         {type === "twitter" && (
           <div>
             {link && <TweetEmbed tweetId={link.split("/").pop()!} />}
-            <h1 className="pt-4">Your Note - </h1>
-            <p className="text-sm text-gray-600 break-words">
-              {description}
-            </p>
+            <div className="ml-2">
+              <h1 className="pt-4">Your Note - </h1>
+              <p className="text-sm text-gray-600 break-words">
+                        {description}
+              </p>
+            </div>
           </div>
         )}
         {type === "note" && (
