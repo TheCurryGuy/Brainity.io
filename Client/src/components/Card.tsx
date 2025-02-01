@@ -90,10 +90,12 @@ export function Card({ title, link, description, type }: CardProps) {
         {type === "youtube" && (
           <div>
             <YouTubeEmbed url={link || "null"} width={320} height={160} />
-            <h1 className="pt-4">Your Note - </h1>
-            <p className="text-sm text-gray-600 break-words">
-                      {description}
-            </p>
+            <div className="ml-2">
+              <h1 className="pt-4">Your Note - </h1>
+              <p className="text-sm text-gray-600 break-words">
+                        {description}
+              </p>
+            </div>
           </div>
         )}
         {type === "twitter" && (

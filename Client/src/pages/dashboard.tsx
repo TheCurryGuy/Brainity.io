@@ -1,12 +1,23 @@
 
 import { useEffect, useContext } from 'react'
-import { ButtonPair } from '../components/ButtonPair'
 import { Card } from '../components/Card'
 import { CreateContentModal } from '../components/CreateContentModal'
 import { Sidebar } from '../components/Sidebar'
 import useContent from '../hooks/useContent'
 import { useNavigate } from 'react-router-dom'
 import { StateContext } from '../Context API/StateContext'
+import { Button } from '../components/Button'
+import { ShareIcon } from '../icons/ShareIcon'
+import { PlusIcon } from '../icons/PlusIcon'
+import axios from 'axios'
+
+async function ShareBrain() {
+  const response = await axios.post("https://brainity-server.vercel.app/api/v1/share", {
+    share: true
+  });
+  const ShareUrl = 'https://brainity.vercel.app/share/' + response.data.hash;
+  alert("Share your brain via: " + ShareUrl);
+}
 
 function Dashboard() {
   const {setModal, isDashboard, isTwitter, isContent, isYoutube, isNote} = useContext(StateContext)
@@ -28,7 +39,10 @@ function Dashboard() {
     <div className=' flex flex-col ml-10 mr-15 w-full'>
       <div className='flex justify-between items-center mt-10 mb-14'>
         <h1 className=' text-4xl'>All Notes</h1>
-        <ButtonPair calling = {() => setModal(true)}/>
+        <div className=' flex gap-2'>
+            <Button startIcon= {<ShareIcon size='lg' />} size='md' variant='secondary' text='Share Brain' onClick={ShareBrain}></Button>
+            <Button startIcon= {<PlusIcon size='lg' />} size='md' variant='primary' text='Add Content' onClick= {() => setModal(true)}></Button>
+        </div>
       </div>
       <div className='flex flex-col'>
         <div className='flex justify-evenly flex-wrap pb-2'>
