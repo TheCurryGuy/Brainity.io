@@ -8,21 +8,24 @@ import { useContext } from "react"
 import { HomeIcon } from "../icons/HomeIcon"
 import { LogoutIcon } from "../icons/LogoutIcon"
 import { useNavigate } from "react-router-dom"
+import { NoteIcon } from "../icons/NoteIcon"
 
 export const Sidebar = () => {
-    const { setYoutube, setTwitter, setContent, setDashboard} = useContext(StateContext)
+    const { setYoutube, setNote, setTwitter, setContent, setDashboard} = useContext(StateContext)
     const Navigate = useNavigate();
 
     function YoutubeClick(){
         setYoutube(true)
         setTwitter(false)
         setContent(false)
+        setNote(false)
         setDashboard(false)
     }
     function TwitterClick(){
         setYoutube(false)
         setTwitter(true)
         setContent(false)
+        setNote(false)
         setDashboard(false)
 
     }
@@ -30,13 +33,23 @@ export const Sidebar = () => {
         setYoutube(false)
         setTwitter(false)
         setContent(true)
+        setNote(false)
         setDashboard(false)
     }
     function HomeClick(){
         setYoutube(false)
         setTwitter(false)
         setContent(false)
+        setNote(false)
         setDashboard(true)
+        
+    }
+    function NoteClick(){
+        setNote(true)
+        setYoutube(false)
+        setTwitter(false)
+        setContent(false)
+        setDashboard(false)
     }
     function LogoutClick(){
         localStorage.removeItem("token")
@@ -51,6 +64,7 @@ export const Sidebar = () => {
                 <SidebarItem onClick = {YoutubeClick} icon={<YouTube/>} text="Youtube"/>
                 <SidebarItem onClick = {TwitterClick} icon={<TwitterIcon/>} text="Twitter"/>
                 <SidebarItem onClick = {ContentClick} icon={<ContentIcon/>} text="Content"/> 
+                <SidebarItem onClick = {NoteClick} icon={<NoteIcon/>} text="Notes"/>
             </div>
         </div>
         <div className="mb-4">

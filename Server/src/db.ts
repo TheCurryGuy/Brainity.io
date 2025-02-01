@@ -11,7 +11,7 @@ const UserSchema = new Schema({
 const ContentSchema = new Schema({
     title: String,
     type: String,
-    link: String,
+    link: { type: String, required: false },
     description: String,
     userId: {type: mongoose.Types.ObjectId, ref: 'User', required: true}
 })

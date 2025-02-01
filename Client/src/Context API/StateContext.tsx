@@ -10,17 +10,17 @@ interface StateProviderProps {
 }
 
 export const StateProvider: React.FC<StateProviderProps> = ({ children }) => {
-    const [isOpen, setIsOpen] = useState(false);
     const [modalOpen, setModal] = useState(false)
     const [isDashboard, setDashboard] = useState(true)
     const [isYoutube, setYoutube] = useState(false)
     const [isTwitter, setTwitter] = useState(false)
     const [isContent, setContent] = useState(false)
+    const [isNote, setNote] = useState(false)
 
     return (
         <StateContext.Provider value={{
-            isOpen, setIsOpen,
             modalOpen, setModal,
+            isNote, setNote,
             isYoutube, setYoutube,
             isTwitter, setTwitter,
             isContent, setContent,

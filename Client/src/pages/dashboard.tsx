@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom'
 import { StateContext } from '../Context API/StateContext'
 
 function Dashboard() {
-  const {setModal, isDashboard, isTwitter, isContent, isYoutube} = useContext(StateContext)
+  const {setModal, isDashboard, isTwitter, isContent, isYoutube, isNote} = useContext(StateContext)
   const contents = useContent();
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
@@ -74,6 +74,18 @@ function Dashboard() {
                 .filter(({ type }) => type === "youtube")
                 .map(({ title, link, description, type }, index) => (
                   <Card key={index} description={description} title={title} link={link} type={type} />
+                ))
+            )
+          )}
+
+          {isNote && (
+            contents.filter(({ type }) => type === "note").length === 0 ? (
+              <p className=' text-3xl'>Sorry! No contents yet...</p> 
+            ) : (
+              contents
+                .filter(({ type }) => type === "note")
+                .map(({ title, description, type }, index) => (
+                  <Card key={index} description={description} title={title} type={type} />
                 ))
             )
           )}

@@ -7,15 +7,16 @@ import { ContentIcon } from "../icons/ContentIcon";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import TweetEmbed from 'react-tweet-embed';
+import { NoteIcon } from "../icons/NoteIcon";
 
 
 
 // Define types for the props
 interface CardProps {
   title: string;
-  link: string;
+  link?: string;
   description: string;
-  type: "youtube" | "twitter" | "content";
+  type: "youtube" | "twitter" | "content" | "note";
 }
 
 // Define types for the API response
@@ -62,7 +63,8 @@ export function Card({ title, link, description, type }: CardProps) {
   useEffect(() => {
     // Fetch link preview data for "content" type
     if (type === "content") {
-      fetchPreview(link);
+      if(link)
+        fetchPreview(link);
     }
   }, [link, type]);
 
@@ -74,6 +76,7 @@ export function Card({ title, link, description, type }: CardProps) {
           {type === "youtube" && <YouTube />}
           {type === "twitter" && <TwitterIcon />}
           {type === "content" && <ContentIcon />}
+          {type === "note" && <NoteIcon />}
           <div className="font-medium text-gray-900">{title}</div>
         </div>
         <div className="flex items-center gap-2 text-gray-500">
@@ -95,7 +98,15 @@ export function Card({ title, link, description, type }: CardProps) {
         )}
         {type === "twitter" && (
           <div>
-            <TweetEmbed tweetId={link.split("/").pop()!} />
+            {link && <TweetEmbed tweetId={link.split("/").pop()!} />}
+            <h1 className="pt-4">Your Note - </h1>
+            <p className="text-sm text-gray-600 break-words">
+              {description}
+            </p>
+          </div>
+        )}
+        {type === "note" && (
+          <div>
             <h1 className="pt-4">Your Note - </h1>
             <p className="text-sm text-gray-600 break-words">
               {description}

@@ -3,24 +3,24 @@ import { CrossIcon } from "../icons/CrossIcon";
 import { Button } from "./Button";
 import { Input } from "./Input";
 import axios from "axios";
-import { StateContext } from '../Context API/StateContext'
+import { StateContext } from '../Context API/StateContext';
 
-const options = ["youtube", "twitter", "content"];
+const options = ["youtube", "twitter", "content", "note"]; // Added "note" option
 
 //@ts-ignore
 export function CreateContentModal() {
-  const {modalOpen, setModal} = useContext(StateContext)
-  const linkRef = useRef<HTMLInputElement>();
-  const titleRef = useRef<HTMLInputElement>();
-  const descRef = useRef<HTMLTextAreaElement | null>(null);
- // Updated to work with textarea
+  const { modalOpen, setModal } = useContext(StateContext);
+  const linkRef = useRef<HTMLInputElement>(null);
+  const titleRef = useRef<HTMLInputElement>(null);
+  const descRef = useRef<HTMLTextAreaElement>(null);
   const [type, setType] = useState("content");
-  function onClose(){
-    setModal(false)
+
+  function onClose() {
+    setModal(false);
   }
 
   async function addContent() {
-    const linkVal = linkRef.current?.value;
+    const linkVal = type === "note" ? null : linkRef.current?.value; // Set linkVal to null if type is "note"
     const titleVal = titleRef.current?.value;
     const desVal = descRef.current?.value;
 
@@ -29,7 +29,7 @@ export function CreateContentModal() {
         "https://brainity-server.vercel.app/api/v1/content",
         {
           title: titleVal,
-          link: linkVal,
+          link: linkVal, // linkVal will be null for "note"
           description: desVal,
           type: type,
         },
@@ -74,9 +74,12 @@ export function CreateContentModal() {
 
             {/* Modal Form */}
             <div className="flex flex-col gap-4">
-              <div className=" justify-start">
+              <div className="justify-start">
                 <Input placeholder="Title" reference={titleRef} />
-                <Input placeholder="Link" reference={linkRef} />
+                {/* Conditionally render the Link input */}
+                {type !== "note" && (
+                  <Input placeholder="Link" reference={linkRef} />
+                )}
               </div>
               <textarea
                 placeholder="Description"
