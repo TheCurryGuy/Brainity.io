@@ -56,7 +56,7 @@ export const Sidebar = () => {
         Navigate("/")
     }
 
-    return <div className="h-screen bg-white border-r min-w-86 flex flex-col p-4 justify-between">
+    return <div className="h-full bg-white border-r min-w-86 flex flex-col p-4 justify-between">
         <div>
             <div className=" text-4xl flex items-center gap-2">{<BrainIcon/>} Brainity.io </div>
             <div className=" pt-10">
