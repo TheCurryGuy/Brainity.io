@@ -8,10 +8,7 @@ import cors from "cors"
 
 const app = express();
 app.use(cors({
-    origin: 'https://brainity.vercel.app',
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['token'],
-    credentials: true
+    origin: 'https://brainity.vercel.app'
 }));
 
 app.options('*', cors());
