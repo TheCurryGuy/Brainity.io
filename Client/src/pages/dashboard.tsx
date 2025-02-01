@@ -12,11 +12,21 @@ import { PlusIcon } from '../icons/PlusIcon'
 import axios from 'axios'
 
 async function ShareBrain() {
-  const response = await axios.post("https://brainity-server.vercel.app/api/v1/share", {
-    share: true
-  });
-  const ShareUrl = 'https://brainity.vercel.app/share/' + response.data.hash;
-  alert("Share your brain via: " + ShareUrl);
+  try{
+    const response = await axios.post("https://brainity-server.vercel.app/api/v1/share", {
+      share: true
+    }, {
+      headers: {
+        token: localStorage.getItem('token')
+      }
+    });
+    const ShareUrl = 'https://brainity.vercel.app/share/' + response.data.hash;
+    await navigator.clipboard.writeText(ShareUrl);
+    alert("Share link copied to clipboard!");
+  } catch (error) {
+    console.error("Error sharing brain:", error);
+    alert("Failed to generate share link.");
+  }
 }
 
 function Dashboard() {
