@@ -21,7 +21,7 @@ const ChatBrain: React.FC = () => {
   
     try {
       const result = await axios.post(
-        'http://localhost:3000/api/v1/chat',
+        'https://brainity-server.vercel.app/api/v1/chat',
         { query },
         {
           headers: {
