@@ -10,6 +10,7 @@ import { Button } from '../components/Button'
 import { ShareIcon } from '../icons/ShareIcon'
 import { PlusIcon } from '../icons/PlusIcon'
 import axios from 'axios'
+import ChatBrain from './ChatBrain'
 
 async function ShareBrain() {
   try {
@@ -53,7 +54,7 @@ async function deleteShare() {
 
 
 function Dashboard() {
-  const {setModal, isDashboard, isTwitter, isContent, isYoutube, isNote} = useContext(StateContext)
+  const {setModal, isDashboard, isTwitter, isContent, isYoutube, isNote, isChat} = useContext(StateContext)
   const contents = useContent();
   const navigate = useNavigate();
   const [buttonText, setButtonText] = useState<string>('Share Brain');
@@ -84,7 +85,13 @@ function Dashboard() {
   return <div className='flex bg-[#F9FBFC]'>
     
     <Sidebar/>
-    <div className=' flex flex-col ml-10 mr-15 w-full'>
+    {isChat && 
+    <div className='flex flex-col ml-10 mr-15 w-full'>
+      <ChatBrain/>
+    </div>
+    }
+
+    {!isChat && <div className=' flex flex-col ml-10 mr-15 w-full'>
       <div className='flex justify-between items-center mt-10 mb-14'>
         <h1 className=' text-4xl'>All Notes</h1>
         <div className=' flex gap-2'>
@@ -154,7 +161,7 @@ function Dashboard() {
         </div>
       </div>
       <CreateContentModal/>
-    </div>
+    </div>}
   </div>
 }
 

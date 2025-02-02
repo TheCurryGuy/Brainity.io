@@ -86,7 +86,7 @@ export function Card({ title, link, description, type }: CardProps) {
           {type === "note" && <NoteIcon />}
           <div className="font-medium text-gray-900">{title}</div>
         </div>
-        <div className="flex items-center gap-2 text-gray-500" onClick={CardShareClick}>
+        <div className="flex items-center gap-2 text-gray-500 cursor-pointer" onClick={CardShareClick}>
           <ShareIcon size="md" />
         </div>
       </div>

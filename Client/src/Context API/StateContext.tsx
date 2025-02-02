@@ -16,6 +16,7 @@ export const StateProvider: React.FC<StateProviderProps> = ({ children }) => {
     const [isTwitter, setTwitter] = useState(false)
     const [isContent, setContent] = useState(false)
     const [isNote, setNote] = useState(false)
+    const [isChat, setChat] = useState(false)
 
     return (
         <StateContext.Provider value={{
@@ -24,7 +25,8 @@ export const StateProvider: React.FC<StateProviderProps> = ({ children }) => {
             isYoutube, setYoutube,
             isTwitter, setTwitter,
             isContent, setContent,
-            isDashboard, setDashboard
+            isDashboard, setDashboard,
+            isChat, setChat
         }}>
             {children}
         </StateContext.Provider>

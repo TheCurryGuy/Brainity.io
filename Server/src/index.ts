@@ -1,11 +1,13 @@
 import express from "express"; 
 import jwt from "jsonwebtoken";
 import { UserModel, ContentModel, LinkModel } from "./db";
-import { JWT_PASSWORD } from "./config";
+import { JWT_PASSWORD, GROQ_API } from "./config";
 import { userMiddleware } from "./middleware";
 import { randomHash } from "./utils";
-import cors from "cors"
+import cors from "cors";
+import { Groq } from 'groq-sdk';
 
+const groqClient = new Groq({ apiKey: GROQ_API });
 const app = express();
 app.use(cors({
     origin: 'https://brainity.vercel.app'
@@ -189,11 +191,70 @@ app.get("/api/v1/brain/:shareId", async (req,res) => {
             username: user.username,//as user can be null although thats imposible
             content: content 
         })
-
     }
-
 })
 
+app.post('/api/v1/chat', userMiddleware, async (req, res) => {
+    const { query } = req.body;
+    const userId = req.userId;
+    try {
+      // Fetch the user's content (Brain's memory)
+      const contents = await ContentModel.find({ userId });
+      const userName = await UserModel.findOne({
+        _id: userId
+      })
+  
+      if (contents.length === 0) {
+        res.status(404).json({ response: "No data found in the Brain." });
+        return
+      }
+  
+      // Create a context from the content titles, descriptions, and links
+      const context = contents
+        .map((c) => {
+          let contentInfo = `**Title:** ${c.title}\n\n**Description:** ${c.description}`;
+          if (c.link) {
+            contentInfo += `\n\n**Link:** [${c.link}](${c.link})`; // Markdown link format
+          }
+          return contentInfo;
+        })
+        .join('\n\n---\n\n'); // Add a separator between items
+  
+      // Create a prompt for the LLM
+      const prompt = `
+        You are ${userName?.username}'s Brain, a smart and friendly chatbot that helps answer questions based on the stored knowledge of ${userName?.username}'s Brain memory!
+
+        **Memory Context:**
+        ${context}
+
+        **User Query:** ${query}
+
+        ### **Guidelines:**
+        - If the question is **related** to the stored memory, provide a clear and concise answer.
+        - If the question is **unrelated**, respond with: "No data found in the Brain."
+        - If a greeting is detected (e.g., "Hi," "Hello"), introduce yourself and say:  
+        "Hello! I am ${userName?.username}'s Brain, your Brain assistant. How can I help you today?"
+        - Format responses using Markdown for clarity.
+        - If a relevant link is available, include it in Markdown format: [Link Text](URL).
+        - Maintain a conversational and friendly tone while staying informative.
+      `;
+  
+      // Generate a response using Groq's LLM
+      const chatCompletion = await groqClient.chat.completions.create({
+        messages: [{ role: "user", content: prompt }],
+        model: "llama-3.3-70b-versatile", // Use an appropriate model
+        temperature: 0.7,
+        max_tokens: 150,
+      });
+  
+      const response = chatCompletion.choices[0]?.message?.content || "No data found in the Brain.";
+  
+      res.json({ response });
+    } catch (error) {
+      console.error('Error processing chat query:', error);
+      res.status(500).json({ response: "Failed to process your query." });
+    }
+});
 
 app.listen(3000, ()=> {
     console.log("Server running on port 3000");

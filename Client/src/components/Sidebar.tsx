@@ -9,9 +9,10 @@ import { HomeIcon } from "../icons/HomeIcon"
 import { LogoutIcon } from "../icons/LogoutIcon"
 import { useNavigate } from "react-router-dom"
 import { NoteIcon } from "../icons/NoteIcon"
+import { ChatIcon } from "../icons/ChatIcon"
 
 export const Sidebar = () => {
-    const { setYoutube, setNote, setTwitter, setContent, setDashboard} = useContext(StateContext)
+    const { setYoutube, setNote, setTwitter, setContent, setDashboard, setChat} = useContext(StateContext)
     const Navigate = useNavigate();
 
     function YoutubeClick(){
@@ -19,6 +20,7 @@ export const Sidebar = () => {
         setTwitter(false)
         setContent(false)
         setNote(false)
+        setChat(false)
         setDashboard(false)
     }
     function TwitterClick(){
@@ -26,6 +28,7 @@ export const Sidebar = () => {
         setTwitter(true)
         setContent(false)
         setNote(false)
+        setChat(false)
         setDashboard(false)
 
     }
@@ -34,6 +37,7 @@ export const Sidebar = () => {
         setTwitter(false)
         setContent(true)
         setNote(false)
+        setChat(false)
         setDashboard(false)
     }
     function HomeClick(){
@@ -41,6 +45,7 @@ export const Sidebar = () => {
         setTwitter(false)
         setContent(false)
         setNote(false)
+        setChat(false)
         setDashboard(true)
         
     }
@@ -49,7 +54,16 @@ export const Sidebar = () => {
         setYoutube(false)
         setTwitter(false)
         setContent(false)
+        setChat(false)
         setDashboard(false)
+    }
+    function ChatClick(){
+        setYoutube(false)
+        setTwitter(false)
+        setContent(false)
+        setDashboard(false)
+        setChat(true)
+        setNote(false)
     }
     function LogoutClick(){
         localStorage.removeItem("token")
@@ -65,6 +79,7 @@ export const Sidebar = () => {
                 <SidebarItem onClick = {TwitterClick} icon={<TwitterIcon/>} text="Twitter"/>
                 <SidebarItem onClick = {ContentClick} icon={<ContentIcon/>} text="Links"/> 
                 <SidebarItem onClick = {NoteClick} icon={<NoteIcon/>} text="Notes"/>
+                <SidebarItem onClick = {ChatClick} icon={<ChatIcon/>} text=" AI Chat"/>
             </div>
         </div>
         <div className="mb-4">
