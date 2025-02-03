@@ -76,7 +76,7 @@ function SharedBrain() {
       <nav className="w-full max-w-6xl mx-auto flex justify-between items-center mb-12">
         <div className="flex items-center gap-3">
           <BrainIcon />
-          <div className="text-2xl font-bold text-purple-900">Brainity.io</div>
+          <div onClick={() => (window.location.href = '/')} className="cursor-pointer text-2xl font-bold text-purple-900">Brainity.io</div>
         </div>
         <Button
           variant="primary"
