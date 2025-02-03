@@ -10,7 +10,7 @@ import { NoteIcon } from "../icons/NoteIcon";
 import { Types } from 'mongoose';
 import { DeleteIcon } from "../icons/DeleteIcon";
 import { StateContext } from "../Context API/StateContext";
-const { setModal } = useContext(StateContext);
+
 
 interface CardProps {
   title: string;
@@ -34,6 +34,7 @@ interface PreviewData {
 
 export function Card({ _id, title, link, description, type }: CardProps) {
   const [previewData, setPreviewData] = useState<PreviewData | null>(null);
+  const { setModal } = useContext(StateContext);
   const [loading, setLoading] = useState<boolean>(true);
   function onClose() {
     setModal(false);
