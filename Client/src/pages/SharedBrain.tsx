@@ -92,16 +92,18 @@ function SharedBrain() {
         <h1 className="text-4xl md:text-6xl font-bold text-purple-900 text-center mb-8">
           {username}'s Shared Brain
         </h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {contents.map((content, index) => (
-            <Card
-              key={index}
-              title={content.title}
-              description={content.description}
-              link={content.link}
-              type={content.type}
-            />
-          ))}
+        <div className="flex justify-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {contents.map((content, index) => (
+              <Card
+                key={index}
+                title={content.title}
+                description={content.description}
+                link={content.link}
+                type={content.type}
+              />
+            ))}
+          </div>
         </div>
       </div>
 
