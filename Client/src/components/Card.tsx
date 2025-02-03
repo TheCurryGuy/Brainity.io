@@ -17,7 +17,7 @@ interface CardProps {
   link?: string;
   description: string;
   type: "youtube" | "twitter" | "links" | "note";
-  _id?: Types.ObjectId;
+  _id?: Types.ObjectId | string;
 }
 
 interface PreviewData {

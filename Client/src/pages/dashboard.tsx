@@ -104,8 +104,8 @@ function Dashboard() {
                 contents.length === 0 ? (
                   <p className='text-3xl'>Sorry! No contents yet...</p>
                 ) : (
-                  contents.map(({ title, link, description, type }, index) => (
-                    <Card key={index} description={description} title={title} link={link} type={type} />
+                  contents.map(({ _id, title, link, description, type }, index) => (
+                    <Card key={index} _id={_id} description={description} title={title} link={link} type={type} />
                   ))
                 )
               )}
@@ -116,8 +116,8 @@ function Dashboard() {
                 ) : (
                   contents
                     .filter(({ type }) => type === "twitter")
-                    .map(({ title, link, description, type }, index) => (
-                      <Card key={index} description={description} title={title} link={link} type={type} />
+                    .map(({ _id, title, link, description, type }, index) => (
+                      <Card key={index} _id={_id} description={description} title={title} link={link} type={type} />
                     ))
                 )
               )}
@@ -128,8 +128,8 @@ function Dashboard() {
                 ) : (
                   contents
                     .filter(({ type }) => type === "links")
-                    .map(({ title, link, description, type }, index) => (
-                      <Card key={index} description={description} title={title} link={link} type={type} />
+                    .map(({ _id, title, link, description, type }, index) => (
+                      <Card key={index} _id={_id} description={description} title={title} link={link} type={type} />
                     ))
                 )
               )}
@@ -140,8 +140,8 @@ function Dashboard() {
                 ) : (
                   contents
                     .filter(({ type }) => type === "youtube")
-                    .map(({ title, link, description, type }, index) => (
-                      <Card key={index} description={description} title={title} link={link} type={type} />
+                    .map(({ _id, title, link, description, type }, index) => (
+                      <Card key={index} _id={_id} description={description} title={title} link={link} type={type} />
                     ))
                 )
               )}
@@ -152,8 +152,8 @@ function Dashboard() {
                 ) : (
                   contents
                     .filter(({ type }) => type === "note")
-                    .map(({ title, description, type }, index) => (
-                      <Card key={index} description={description} title={title} type={type} />
+                    .map(({ _id, title, description, type }, index) => (
+                      <Card key={index} _id={_id} description={description} title={title} type={type} />
                     ))
                 )
               )}
