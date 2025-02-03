@@ -53,27 +53,27 @@ const ChatBrain: React.FC = () => {
   };
 
   return (
-    <div className="chat-main bg-[#F9FBFC] min-h-screen flex flex-col p-6">
+    <div className="chat-main bg-[#F9FBFC] min-h-screen flex flex-col p-4 md:p-6">
       {/* Header */}
-      <div className="header mb-8">
-        <h1 className="text-4xl font-bold text-gray-800">
+      <div className="header mb-4 md:mb-8">
+        <h1 className="text-2xl md:text-4xl font-bold text-gray-800">
           <a href="/" className="hover:text-purple-700 transition-colors">
             ChatBrain 🧠
           </a>
         </h1>
-        <p className="text-gray-600 mt-2">Your AI-powered Brain assistant</p>
+        <p className="text-gray-600 mt-1 md:mt-2 text-sm md:text-base">Your AI-powered Brain assistant</p>
       </div>
 
       {/* Chat Box */}
-      <div className="chat-box flex-1 max-h-120 overflow-y-auto mb-6 bg-white rounded-lg shadow-md p-4">
+      <div className="chat-box flex-1 max-h-[calc(100vh-200px)] overflow-y-auto mb-4 md:mb-6 bg-white rounded-lg shadow-md p-3 md:p-4">
         {messages.map((message, idx) => (
           <div
             key={idx}
-            className={`message ${message.type === 'user' ? 'user' : 'bot'} mb-4`}
+            className={`message ${message.type === 'user' ? 'user' : 'bot'} mb-3 md:mb-4`}
           >
             <div
-              className={`message-text p-3 rounded-lg ${
-                message.type === 'user' ? 'bg-purple-100 text-gray-800 ml-64' : 'bg-gray-50 text-gray-800 mr-64'
+              className={`message-text p-2 md:p-3 rounded-lg ${
+                message.type === 'user' ? 'bg-purple-100 text-gray-800 ml-auto md:ml-64' : 'bg-gray-50 text-gray-800 mr-auto md:mr-64'
               }`}
             >
               {message.type === 'bot' ? (
@@ -81,33 +81,33 @@ const ChatBrain: React.FC = () => {
                   <ReactMarkdown
                     remarkPlugins={[remarkGfm]}
                     rehypePlugins={[rehypeHighlight]}
-                    className="prose"
+                    className="prose text-sm md:text-base"
                   >
                     {message.text}
                   </ReactMarkdown>
                   <button
                     onClick={() => handleCopyResponse(message.text)}
-                    className="copy-btn mt-2 text-sm text-purple-500 hover:text-purple-700"
+                    className="copy-btn mt-1 md:mt-2 text-sm text-purple-500 hover:text-purple-700"
                   >
                     Copy Response
                   </button>
                 </div>
               ) : (
-                <p>{message.text}</p>
+                <p className="text-sm md:text-base">{message.text}</p>
               )}
             </div>
           </div>
         ))}
         {isLoading && (
-          <div className="loader text-center text-gray-600">Generating response...</div>
+          <div className="loader text-center text-gray-600 text-sm md:text-base">Generating response...</div>
         )}
       </div>
 
       {/* Input Container */}
-      <div className="input-container bg-white rounded-lg shadow-md p-4">
+      <div className="input-container bg-white rounded-lg shadow-md p-3 md:p-4">
         <div className="flex items-center gap-2">
           <textarea
-            className="flex-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+            className="flex-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm md:text-base"
             placeholder="Ask me anything about your Brain's memory..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
@@ -122,7 +122,7 @@ const ChatBrain: React.FC = () => {
           <button
             onClick={handleQuerySubmit}
             disabled={isLoading}
-            className="p-3 bg-purple-500 text-white rounded-lg hover:bg-purple-600 disabled:bg-purple-300 transition-colors"
+            className="p-2 md:p-3 bg-purple-500 text-white rounded-lg hover:bg-purple-600 disabled:bg-purple-300 transition-colors"
           >
             <FaArrowUp />
           </button>
