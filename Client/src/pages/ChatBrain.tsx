@@ -53,9 +53,9 @@ const ChatBrain: React.FC = () => {
   };
 
   return (
-    <div className="chat-main bg-[#F9FBFC] min-h-screen flex flex-col justify-center p-4 md:p-6">
+    <div className="chat-main bg-[#F9FBFC] min-h-screen mt-0 md:mt-0.5 flex flex-col justify-center p-4 md:p-6">
       {/* Header */}
-      <div className="header mb-4 md:mb-8 ml-auto mr-auto mt-0.5">
+      <div className="header mb-4 md:mb-8 ml-auto mr-auto "> 
         <h1 className="text-3xl md:text-4xl font-bold text-gray-800">
           <a href="/" className="hover:text-purple-700 transition-colors">
             ChatBrain 🧠

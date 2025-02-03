@@ -84,7 +84,7 @@ function Dashboard() {
     <div className='flex bg-[#F9FBFC]'>
       <Sidebar />
       {isChat && 
-        <div className='flex flex-col ml-5 mr-5 w-full md:ml-0 md:mr-0'>
+        <div className='flex max-h-screen flex-col ml-3 mr-3 w-full md:ml-0 md:mr-0'>
           <ChatBrain />
         </div>
       }
