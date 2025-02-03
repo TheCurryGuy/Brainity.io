@@ -86,7 +86,7 @@ function SharedBrain() {
           className="hidden md:block"
         />
       </nav>
-      <div className='flex flex-col items-center justify-evenly'>
+      <div className='flex flex-col min-h-full items-center justify-between'>
       {/* Main Content Area */}
         <div className="max-w-6xl mx-auto">
           <h1 className="text-4xl md:text-6xl font-bold text-purple-900 text-center mb-8">
