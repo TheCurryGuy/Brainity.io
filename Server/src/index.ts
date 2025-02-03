@@ -240,7 +240,7 @@ app.post('/api/v1/chat', userMiddleware, async (req, res) => {
         - If the question is **related** to the stored memory, provide a clear and concise answer.
         - If the question is **unrelated**, respond with: "No data found in the Brain."
         - If a greeting is detected (e.g., "Hi," "Hello"), introduce yourself and say:  
-        "Hello! I am ${userName?.username}'s Brain, your Brain assistant. How can I help you today?"
+        "I am ${userName?.username}'s Brain, your Brain assistant. How can I help you today?"
         - Format responses using Markdown for clarity.
         - If a relevant link is available, include it in Markdown format: [Link Text](URL).
         - Maintain a conversational and friendly tone while staying informative.
