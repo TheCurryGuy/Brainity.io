@@ -55,7 +55,7 @@ const ChatBrain: React.FC = () => {
   return (
     <div className="chat-main bg-[#F9FBFC] min-h-screen flex flex-col p-4 md:p-6">
       {/* Header */}
-      <div className="header mb-4 md:mb-8">
+      <div className="header mb-4 md:mb-8 m-auto">
         <h1 className="text-2xl md:text-4xl font-bold text-gray-800">
           <a href="/" className="hover:text-purple-700 transition-colors">
             ChatBrain 🧠
@@ -65,7 +65,7 @@ const ChatBrain: React.FC = () => {
       </div>
 
       {/* Chat Box */}
-      <div className="chat-box flex-1 max-h-[calc(100vh-200px)] overflow-y-auto mb-4 md:mb-6 bg-white rounded-lg shadow-md p-3 md:p-4">
+      <div className="chat-box flex-1 w-full max-h-[calc(100vh-200px)] overflow-y-auto mb-4 md:mb-6 bg-white rounded-lg shadow-md p-3 md:p-4">
         {messages.map((message, idx) => (
           <div
             key={idx}
