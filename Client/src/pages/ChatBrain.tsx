@@ -53,7 +53,7 @@ const ChatBrain: React.FC = () => {
   };
 
   return (
-    <div className="chat-main bg-[#F9FBFC] min-h-screen flex flex-col p-4 md:p-6">
+    <div className="chat-main bg-[#F9FBFC] min-h-screen flex flex-col justify-center p-4 md:p-6">
       {/* Header */}
       <div className="header mb-4 md:mb-8 ml-auto mr-auto mt-0.5">
         <h1 className="text-3xl md:text-4xl font-bold text-gray-800">
@@ -65,7 +65,7 @@ const ChatBrain: React.FC = () => {
       </div>
 
       {/* Chat Box */}
-      <div className="chat-box flex-1 w-full max-h-[calc(100vh-320px)] md:max-h-[calc(100vh-220px)] overflow-y-auto mb-4 md:mb-6 bg-white rounded-lg shadow-md p-3 md:p-4">
+      <div className="chat-box flex-1 w-full max-h-[calc(100vh-300px)] md:max-h-[calc(100vh-220px)] overflow-y-auto mb-4 md:mb-6 bg-white rounded-lg shadow-md p-3 md:p-4">
         {messages.map((message, idx) => (
           <div
             key={idx}
