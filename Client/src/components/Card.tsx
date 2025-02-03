@@ -4,15 +4,20 @@ import { YouTube } from "../icons/Youtube";
 import { TwitterIcon } from "../icons/TwitterIcon";
 import { ContentIcon } from "../icons/ContentIcon";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import TweetEmbed from 'react-tweet-embed';
 import { NoteIcon } from "../icons/NoteIcon";
+import { Types } from 'mongoose';
+import { DeleteIcon } from "../icons/DeleteIcon";
+import { StateContext } from "../Context API/StateContext";
+const { setModal } = useContext(StateContext);
 
 interface CardProps {
   title: string;
   link?: string;
   description: string;
   type: "youtube" | "twitter" | "links" | "note";
+  _id?: Types.ObjectId;
 }
 
 interface PreviewData {
@@ -27,9 +32,12 @@ interface PreviewData {
   };
 }
 
-export function Card({ title, link, description, type }: CardProps) {
+export function Card({ _id, title, link, description, type }: CardProps) {
   const [previewData, setPreviewData] = useState<PreviewData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  function onClose() {
+    setModal(false);
+  }
 
   const fetchPreview = async (url: string) => {
     const options = {
@@ -68,6 +76,27 @@ export function Card({ title, link, description, type }: CardProps) {
       await navigator.clipboard.writeText(description);
     }
   }
+  async function DeleteClick() {
+    try {
+      await axios.delete(
+        "https://brainity-server.vercel.app/api/v1/content", 
+        {
+          data: { contentId: _id },  
+          headers: {
+            "token": localStorage.getItem("token")  
+          }
+        }
+      );
+      alert("Content deleted successfully!");
+      onClose();
+      return true;
+    } catch (error) {
+      console.error("Error deleting content:", error);
+      alert("Failed to delete content.");
+      return false;
+    }
+  }
+  
 
   return (
     <div className="bg-white rounded-md shadow-sm border-1 p-2 border-slate-100 max-h-100 overflow-auto w-full md:max-w-84">
@@ -79,9 +108,16 @@ export function Card({ title, link, description, type }: CardProps) {
           {type === "note" && <NoteIcon />}
           <div className="font-medium text-gray-900">{title}</div>
         </div>
-        <div className="flex items-center gap-2 text-gray-500 cursor-pointer" onClick={CardShareClick}>
-          <ShareIcon size="md" />
+        <div className="flex items-center gap-2">
+          <div className="flex items-center text-gray-500 cursor-pointer" onClick={CardShareClick}>
+            <ShareIcon size="md" />
+          </div>
+          <div className="flex items-center text-gray-500 cursor-pointer" onClick={DeleteClick}>
+            <DeleteIcon size="md" />
+          </div>
+
         </div>
+
       </div>
 
       <div className="pt-4">
