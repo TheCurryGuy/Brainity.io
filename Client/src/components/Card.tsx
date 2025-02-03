@@ -113,10 +113,9 @@ export function Card({ _id, title, link, description, type }: CardProps) {
           <div className="flex items-center text-gray-500 cursor-pointer" onClick={CardShareClick}>
             <ShareIcon size="md" />
           </div>
-          <div className="flex items-center text-gray-500 cursor-pointer" onClick={DeleteClick}>
+          {_id? <div className="flex items-center text-gray-500 cursor-pointer" onClick={DeleteClick}>
             <DeleteIcon size="md" />
-          </div>
-
+          </div> : ""}
         </div>
 
       </div>
