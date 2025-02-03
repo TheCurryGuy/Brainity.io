@@ -65,7 +65,7 @@ const ChatBrain: React.FC = () => {
       </div>
 
       {/* Chat Box */}
-      <div className="chat-box flex-1 w-full h-[calc(100vh-220px)] md:h-[calc(100vh-260px)] overflow-y-auto mb-4 md:mb-6 bg-white rounded-lg shadow-md p-3 md:p-4">
+      <div className="chat-box flex-1 w-full max-h-110 md:h-[calc(100vh-260px)] overflow-y-auto mb-4 md:mb-6 bg-white rounded-lg shadow-md p-3 md:p-4">
         {messages.map((message, idx) => (
           <div
             key={idx}
@@ -108,7 +108,7 @@ const ChatBrain: React.FC = () => {
         <div className="flex items-center gap-2">
           <textarea
             className="flex-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm md:text-base"
-            placeholder="Ask me anything about your Brain's memory..."
+            placeholder="Ask me about your Brain's memory..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             rows={1}
