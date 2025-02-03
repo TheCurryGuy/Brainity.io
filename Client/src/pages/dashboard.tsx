@@ -90,7 +90,7 @@ function Dashboard() {
       }
 
       {!isChat && (
-        <div className='flex flex-col ml-9 mr-9 md:ml-0 md:mr-0 w-full'>
+        <div className='flex max-h-screen flex-col ml-9 mr-9 md:ml-0 md:mr-0 w-full'>
           <div className='flex justify-between md:flex-row flex-col items-center mt-14 md:mt-10 mb-10 md:mb-14'>
             <h1 className='text-4xl md:mb-0 mb-4 md:ml-10'>All Notes</h1>
             <div className='flex gap-2 md:mr-10'>
