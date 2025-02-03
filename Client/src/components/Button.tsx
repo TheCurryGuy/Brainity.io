@@ -19,7 +19,7 @@ const variantStyles = {
 const sizeStyles = {
     sm: "p-1 w-20 md:w-26", 
     md: "px-6 py-2.5 md:text-lg text-xs md:px-3 md:py-2.5 md:w-40", 
-    lg: "p-1 w-16 md:p-0 md:w-46 text-sm md:text-lg", 
+    lg: "p-1 w-16 md:p-1.5 md:w-44 text-sm md:text-lg", 
 };
 
 const defaultStyles =
@@ -32,7 +32,7 @@ export const Button = (props: ButtonProps) => {
             onClick={props.onClick}
             className={`${variantStyles[props.variant]} ${defaultStyles} ${props.className} ${sizeStyles[props.size]}`}
         >
-            <div className="flex items-center">
+            <div className="flex items-center justify-center">
                 {props.startIcon && <span className="mr-2">{props.startIcon}</span>}
                 {props.text}
                 {props.endIcon && <span className="ml-2">{props.endIcon}</span>}
