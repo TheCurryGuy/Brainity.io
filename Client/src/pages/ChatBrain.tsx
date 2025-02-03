@@ -34,7 +34,7 @@ const ChatBrain: React.FC = () => {
       setMessages((prev) => [...prev, botMessage]);
     } catch (error) {
       console.error('Error fetching response:', error);
-      const errorMessage: { type: 'user' | 'bot'; text: string } = { type: 'bot', text: 'Failed to fetch response. Please try again.' };
+      const errorMessage: { type: 'user' | 'bot'; text: string } = { type: 'bot', text: 'It seems like I have no memory about '+query+'.' };
       setMessages((prev) => [...prev, errorMessage]);
     } finally {
       setIsLoading(false);
@@ -65,7 +65,7 @@ const ChatBrain: React.FC = () => {
       </div>
 
       {/* Chat Box */}
-      <div className="chat-box flex-1 w-full max-h-[calc(100vh-200px)] overflow-y-auto mb-4 md:mb-6 bg-white rounded-lg shadow-md p-3 md:p-4">
+      <div className="chat-box flex-1 w-full h-[calc(100vh-220px)] md:h-[calc(100vh-260px)] overflow-y-auto mb-4 md:mb-6 bg-white rounded-lg shadow-md p-3 md:p-4">
         {messages.map((message, idx) => (
           <div
             key={idx}
