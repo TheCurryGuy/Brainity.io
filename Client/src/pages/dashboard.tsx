@@ -81,7 +81,7 @@ function Dashboard() {
   };
 
   return (
-    <div className='flex bg-[#F9FBFC]'>
+    <div className='flex bg-[#F9FBFC] min-h-screen'>
       <Sidebar />
       {isChat && 
         <div className='flex max-h-screen flex-col ml-3 mr-3 w-full md:ml-0 md:mr-0'>

@@ -112,7 +112,7 @@ export const Sidebar = () => {
                         <SidebarItem onClick={ChatClick} icon={<ChatIcon />} text="AI Chat" />
                     </div>
                 </div>
-                <div className="mb-4">
+                <div className=" mb-6 md:mb-4">
                     <SidebarItem onClick={LogoutClick} icon={<LogoutIcon />} text="Logout" />
                 </div>
             </div>
