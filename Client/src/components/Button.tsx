@@ -19,7 +19,7 @@ const variantStyles = {
 const sizeStyles = {
     sm: "p-1 w-20 md:w-26", 
     md: "px-6 py-2.5 md:text-lg text-xs md:px-3 md:py-2.5 md:w-40", 
-    lg: "p-1 w-16 md:p-1.5 md:w-44 text-sm md:text-lg", 
+    lg: "p-2 w-30 md:p-1.5 md:w-44 text-md md:text-lg", 
 };
 
 const defaultStyles =
