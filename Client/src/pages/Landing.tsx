@@ -15,7 +15,7 @@ export function Landing() {
       <nav className="w-full max-w-6xl flex justify-between items-center mb-12">
         <div className="flex items-center gap-3">
           <BrainIcon />
-          <div className="text-2xl font-bold text-purple-900">Brainity.io</div>
+          <div onClick={()=> navigate("/")} className=" cursor-pointer text-2xl font-bold text-purple-900">Brainity.io</div>
         </div>
         <div className="hidden md:flex space-x-6">
           <a href="#features" className="text-purple-700 hover:text-purple-900 font-medium">

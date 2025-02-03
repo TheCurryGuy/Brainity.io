@@ -6,6 +6,7 @@ import { userMiddleware } from "./middleware";
 import { randomHash } from "./utils";
 import cors from "cors";
 import { Groq } from 'groq-sdk';
+import bcrypt from "bcrypt"
 
 const groqClient = new Groq({ apiKey: GROQ_API });
 const app = express();
@@ -38,9 +39,10 @@ app.post("/api/v1/signup",async (req,res) => {
     const password = req.body.password;
 
     try{
+        const hashedPassword = await bcrypt.hash(password, 4)
         await UserModel.create({
             username: username,
-            password: password
+            password: hashedPassword
         })
         res.json({
             message: "User Signed Up Successfully!"
@@ -57,28 +59,33 @@ app.post("/api/v1/signin", async (req,res) => {
     const username = req.body.username;
     const password = req.body.password;
     const userExists = await UserModel.findOne({
-        username,
-        password
+        username
     })
     if(userExists){
         if (!JWT_PASSWORD) {
             // Handle missing JWT_PASSWORD securely
             res.status(500).json({ message: "Internal Server Error: JWT_PASSWORD is not set" }); 
         } else{
-            const token = jwt.sign({
-                id: userExists._id
-            },JWT_PASSWORD);
-            res.json({
-                token
-            })
+            const passwordMatch = userExists.password ? await bcrypt.compare(password, userExists.password) : false;
+            if(!passwordMatch){
+                res.status(403).json({
+                    message: "Incorrect Credentials"
+                })
+                return;
+            } else{
+                const token = jwt.sign({
+                    id: userExists._id
+                },JWT_PASSWORD);
+                res.json({
+                    token
+                })
+            }
         }
-        
     } else{
         res.status(403).json({
             message: "Incorrect Credentials"
         })
-    }
-    
+    }  
 })
 
 app.post("/api/v1/content", userMiddleware, async (req,res) => {

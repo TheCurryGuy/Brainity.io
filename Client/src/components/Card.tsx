@@ -8,9 +8,6 @@ import { useState, useEffect } from "react";
 import TweetEmbed from 'react-tweet-embed';
 import { NoteIcon } from "../icons/NoteIcon";
 
-
-
-// Define types for the props
 interface CardProps {
   title: string;
   link?: string;
@@ -18,7 +15,6 @@ interface CardProps {
   type: "youtube" | "twitter" | "links" | "note";
 }
 
-// Define types for the API response
 interface PreviewData {
   title?: string;
   ogp?: {
@@ -35,7 +31,6 @@ export function Card({ title, link, description, type }: CardProps) {
   const [previewData, setPreviewData] = useState<PreviewData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
-  // Function to fetch link preview data
   const fetchPreview = async (url: string) => {
     const options = {
       method: "GET",
@@ -59,25 +54,23 @@ export function Card({ title, link, description, type }: CardProps) {
       setLoading(false);
     }
   };
+
   useEffect(() => {
-    // Fetch link preview data for "content" type
-    if (type === "links") {
-      if(link)
-        fetchPreview(link);
+    if (type === "links" && link) {
+      fetchPreview(link);
     }
   }, [link, type]);
 
-  async function CardShareClick(){
-    if(type === "youtube" || type === "twitter" || type === "links"){
-      await navigator.clipboard.writeText(link? link : "No Link");
-    } else{
+  async function CardShareClick() {
+    if (type === "youtube" || type === "twitter" || type === "links") {
+      await navigator.clipboard.writeText(link || "No Link");
+    } else {
       await navigator.clipboard.writeText(description);
     }
   }
 
   return (
-    <div className="bg-white rounded-md shadow-sm border-1 p-2 border-slate-100 max-h-100 overflow-auto min-w-84">
-      {/* Header Section */}
+    <div className="bg-white rounded-md shadow-sm border-1 p-2 border-slate-100 max-h-100 overflow-auto w-full md:max-w-84">
       <div className="flex justify-between">
         <div className="flex items-center gap-2">
           {type === "youtube" && <YouTube />}
@@ -91,16 +84,13 @@ export function Card({ title, link, description, type }: CardProps) {
         </div>
       </div>
 
-      {/* Content Section */}
       <div className="pt-4">
         {type === "youtube" && (
           <div>
-            <YouTubeEmbed url={link || "null"} width={320} height={160} />
+            <YouTubeEmbed url={link || "null"} width="100%" height={160} />
             <div className="ml-2">
               <h1 className="pt-4">Your Note - </h1>
-              <p className="text-sm text-gray-600 break-words">
-                        {description}
-              </p>
+              <p className="text-sm text-gray-600 break-words">{description}</p>
             </div>
           </div>
         )}
@@ -109,9 +99,7 @@ export function Card({ title, link, description, type }: CardProps) {
             {link && <TweetEmbed tweetId={link.split("/").pop()!} />}
             <div className="ml-2">
               <h1 className="pt-4">Your Note - </h1>
-              <p className="text-sm text-gray-600 break-words">
-                        {description}
-              </p>
+              <p className="text-sm text-gray-600 break-words">{description}</p>
             </div>
           </div>
         )}
@@ -119,19 +107,16 @@ export function Card({ title, link, description, type }: CardProps) {
           <div className="mt-3 p-4 h-fit">
             <h1 className="text-2xl font-semibold text-purple-900 mb-4">{`${title}'s Content - `}</h1>
             <div className="p-4 bg-gray-50 rounded-lg border border-gray-200">
-              <p className="text-gray-700 text-base break-words leading-relaxed">
-                {description}
-              </p>
+              <p className="text-gray-700 text-base break-words leading-relaxed">{description}</p>
             </div>
           </div>
         )}
         {type === "links" && (
-          <div className="overflow-hidden break-words max-w-74">
+          <div className="overflow-hidden break-words w-full">
             {loading ? (
               <div className="p-4 text-center text-gray-600">Loading preview...</div>
             ) : (
               <div className="bg-gray-50 rounded-lg p-4">
-                {/* Preview Image */}
                 {previewData?.ogp?.["og:image"]?.[0] && (
                   <img
                     src={previewData.ogp["og:image"][0]}
@@ -139,20 +124,14 @@ export function Card({ title, link, description, type }: CardProps) {
                     className="w-full h-40 object-cover rounded-t-lg"
                   />
                 )}
-
-                {/* Preview Title and Description */}
                 <div className="p-2">
                   <h3 className="text-lg font-semibold text-gray-900">
                     {previewData?.ogp?.["og:title"]?.[0] || title}
                   </h3>
                   <p className="text-sm text-gray-600">
-                    {previewData?.ogp?.["og:description"]?.[0] ||
-                      previewData?.seo?.description?.[0] ||
-                      "No Link Data"}
+                    {previewData?.ogp?.["og:description"]?.[0] || previewData?.seo?.description?.[0] || "No Link Data"}
                   </p>
                 </div>
-
-                {/* Visit Link Button */}
                 <a
                   href={link}
                   target="_blank"
@@ -162,16 +141,12 @@ export function Card({ title, link, description, type }: CardProps) {
                   Visit Link
                 </a>
                 <h1>Your Note - </h1>
-                <p className="text-sm text-gray-600 break-words">
-                    {description}
-                </p>
-
+                <p className="text-sm text-gray-600 break-words">{description}</p>
               </div>
             )}
           </div>
         )}
       </div>
-
     </div>
   );
 }
