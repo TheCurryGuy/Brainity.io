@@ -28,6 +28,7 @@ export const Sidebar = () => {
         setNote(false);
         setChat(false);
         setDashboard(false);
+        toggleSidebar();
     }
 
     function TwitterClick() {
@@ -37,6 +38,7 @@ export const Sidebar = () => {
         setNote(false);
         setChat(false);
         setDashboard(false);
+        toggleSidebar();
     }
 
     function ContentClick() {
@@ -46,6 +48,7 @@ export const Sidebar = () => {
         setNote(false);
         setChat(false);
         setDashboard(false);
+        toggleSidebar();
     }
 
     function HomeClick() {
@@ -55,6 +58,7 @@ export const Sidebar = () => {
         setNote(false);
         setChat(false);
         setDashboard(true);
+        toggleSidebar();
     }
 
     function NoteClick() {
@@ -64,6 +68,7 @@ export const Sidebar = () => {
         setContent(false);
         setChat(false);
         setDashboard(false);
+        toggleSidebar();
     }
 
     function ChatClick() {
@@ -73,6 +78,7 @@ export const Sidebar = () => {
         setDashboard(false);
         setChat(true);
         setNote(false);
+        toggleSidebar();
     }
 
     function LogoutClick() {
