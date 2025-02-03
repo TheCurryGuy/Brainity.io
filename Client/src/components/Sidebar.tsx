@@ -83,7 +83,7 @@ export const Sidebar = () => {
     return (
         <>
             {!isSidebarOpen && <div className="md:hidden fixed top-4 left-4 z-50">
-                <div onClick={toggleSidebar} className="p-2 bg-white rounded-lg shadow">
+                <div onClick={toggleSidebar} className="p-2 cursor-pointer rounded-lg">
                     <MenuIcon />
                 </div>
             </div>}
@@ -93,7 +93,7 @@ export const Sidebar = () => {
                         <div onClick={() => Navigate("/")} className="text-4xl flex items-center gap-2 cursor-pointer">
                             {<BrainIcon />} Brainity.io
                         </div>
-                        <div onClick={toggleSidebar} className="p-2 bg-white rounded-lg shadow md:hidden">
+                        <div onClick={toggleSidebar} className="p-2 cursor-pointer rounded-lg md:hidden">
                             <MenuIcon />
                         </div>
                     </div>
