@@ -4,12 +4,11 @@ import { YouTube } from "../icons/Youtube";
 import { TwitterIcon } from "../icons/TwitterIcon";
 import { ContentIcon } from "../icons/ContentIcon";
 import axios from "axios";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import TweetEmbed from 'react-tweet-embed';
 import { NoteIcon } from "../icons/NoteIcon";
 import { Types } from 'mongoose';
 import { DeleteIcon } from "../icons/DeleteIcon";
-import { StateContext } from "../Context API/StateContext";
 
 
 interface CardProps {
@@ -34,11 +33,7 @@ interface PreviewData {
 
 export function Card({ _id, title, link, description, type }: CardProps) {
   const [previewData, setPreviewData] = useState<PreviewData | null>(null);
-  const { setModal } = useContext(StateContext);
   const [loading, setLoading] = useState<boolean>(true);
-  function onClose() {
-    setModal(false);
-  }
 
   const fetchPreview = async (url: string) => {
     const options = {
@@ -89,7 +84,7 @@ export function Card({ _id, title, link, description, type }: CardProps) {
         }
       );
       alert("Content deleted successfully!");
-      onClose();
+      window.location.reload();
       return true;
     } catch (error) {
       console.error("Error deleting content:", error);
