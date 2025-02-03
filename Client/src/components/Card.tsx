@@ -95,7 +95,7 @@ export function Card({ _id, title, link, description, type }: CardProps) {
   
 
   return (
-    <div className="bg-white rounded-md shadow-sm border-1 p-2 border-slate-100 max-h-100 overflow-auto w-full md:max-w-84">
+    <div className="bg-white rounded-md shadow-sm border-1 p-2 border-slate-100 min-h-100 overflow-auto w-full md:max-w-84">
       <div className="flex justify-between">
         <div className="flex items-center gap-2">
           {type === "youtube" && <YouTube />}
