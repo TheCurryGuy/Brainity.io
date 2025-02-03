@@ -71,7 +71,7 @@ function SharedBrain() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-100 p-6">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-100 p-6 flex flex-col">
       {/* Navbar */}
       <nav className="w-full max-w-6xl mx-auto flex justify-between items-center mb-12">
         <div className="flex items-center gap-3">
@@ -86,32 +86,31 @@ function SharedBrain() {
           className="hidden md:block"
         />
       </nav>
-      <div className='flex flex-col min-h-full items-center justify-between'>
-      {/* Main Content Area */}
-        <div className="max-w-6xl mx-auto">
-          <h1 className="text-4xl md:text-6xl font-bold text-purple-900 text-center mb-8">
-            {username}'s Shared Brain
-          </h1>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {contents.map((content, index) => (
-              <Card
-                key={index}
-                title={content.title}
-                description={content.description}
-                link={content.link}
-                type={content.type}
-              />
-            ))}
-          </div>
-        </div>
 
-        {/* Footer */}
-        <footer className="mt-20 w-full max-w-6xl mx-auto text-center text-purple-700">
-          <a href="https://github.com/TheCurryGuy" target="_blank" rel="noopener noreferrer">
-            <p>&copy; 2025 Brainity.io | TheCurryGuy | All rights reserved.</p>
-          </a>
-        </footer>
+      {/* Main Content Area */}
+      <div className="flex-1 max-w-6xl mx-auto w-full">
+        <h1 className="text-4xl md:text-6xl font-bold text-purple-900 text-center mb-8">
+          {username}'s Shared Brain
+        </h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {contents.map((content, index) => (
+            <Card
+              key={index}
+              title={content.title}
+              description={content.description}
+              link={content.link}
+              type={content.type}
+            />
+          ))}
+        </div>
       </div>
+
+      {/* Footer */}
+      <footer className="mt-20 w-full max-w-6xl mx-auto text-center text-purple-700">
+        <a href="https://github.com/TheCurryGuy" target="_blank" rel="noopener noreferrer">
+          <p>&copy; 2025 Brainity.io | TheCurryGuy | All rights reserved.</p>
+        </a>
+      </footer>
     </div>
   );
 }
